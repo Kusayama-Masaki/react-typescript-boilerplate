@@ -2,23 +2,32 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: process.env.NODE_ENV || "development",
-  entry: './src/index.tsx',
+  entry: "./src/index.tsx",
   output: {
     path: `${__dirname}/dist`,
-    publicPath: '/',
-    filename: 'bundle.js'
+    publicPath: "/",
+    filename: "bundle.js"
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: [".ts", ".tsx", ".js"]
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: [
-          { loader: "babel-loader" },
+          {
+            loader: "babel-loader"
+          },
+          {
+            loader: "eslint-loader",
+            options: {
+              esModules: true,
+              cache: true
+            }
+          }
         ],
-        exclude: /node_modules/,
+        exclude: /node_modules/
       },
       {
         test: /\.html$/,
@@ -37,6 +46,6 @@ module.exports = {
     })
   ],
   devServer: {
-    contentBase: './dist'
+    contentBase: "./dist"
   }
 };
